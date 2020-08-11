@@ -1,0 +1,24 @@
+
+import boto3
+import json
+from datetime import datetime
+import calendar
+import random
+import time
+import base64
+print ('done12')
+data = {}
+with open('C://Users/userpath/Pictures/1.jpg', mode='rb') as file:
+    img = file.read()
+print(img)
+data['img'] =  base64.b64encode(img).decode("utf-8");
+print("=============================");
+#print(data['img'])
+my_stream_name = 'BotoDemo1'
+
+kinesis_client = boto3.client('kinesis', region_name='ap-south-1')
+put_response = kinesis_client.put_record(
+                        StreamName=my_stream_name,
+                        Data=json.dumps(data),
+                        PartitionKey='test1')
+print ('done')
